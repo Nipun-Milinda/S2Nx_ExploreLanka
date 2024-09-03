@@ -6,13 +6,31 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migration:create": "dotenv -- sequelize-cli migration:create",
+    "migrate": "dotenv -- sequelize-cli db:migrate",
+    "migrate:rollback": "dotenv -- sequelize-cli db:migrate:undo",
+    "migrate:rollback:all": "dotenv -- sequelize-cli db:migrate:undo:all"
   },
   "dependencies": {
-    "@material-tailwind/react": "^2.1.9",
+    "babel": "^6.23.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "express": "^4.19.2",
+    "googleapis": "^102.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "next": "14.2.7",
-    "react": "^18",
-    "react-dom": "^18"
+    "nodemailer": "^6.9.13",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "sequelize-typescript": "^2.1.6",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/node": "^20",
