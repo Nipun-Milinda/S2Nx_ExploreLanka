@@ -2,71 +2,53 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("users", {
-      UserID: {
+    await queryInterface.createTable("user_contacts", {
+      UserContactID: {
         type: Sequelize.STRING,
         primaryKey: true,
       },
-      Email: {
+      Emg_Name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Password: {
+      Emg_MobileNumber: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Image: {
-        type: Sequelize.STRING,
-      },
-      EmailVerified: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      Country: {
-        type: Sequelize.STRING,
-      },
-      FullName: {
+      Emg_Relationship: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Nationality: {
+      Emg_HouseNo: {
         type: Sequelize.STRING,
       },
-      Gender: {
+      Emg_Street: {
         type: Sequelize.STRING,
       },
-      Naturalized: {
-        type: Sequelize.BOOLEAN,
-      },
-      Birthday: {
-        type: Sequelize.DATE,
-      },
-      BirthPlace: {
+      Emg_City: {
         type: Sequelize.STRING,
       },
-      BirthCountry: {
+      Type: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      Height: {
-        type: Sequelize.FLOAT,
-      },
-      MaritalStatus: {
+      VisaApplicationID: {
         type: Sequelize.STRING,
+        references: {
+          model: "visa_applications",
+          key: "VisaApplicationID",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
-      Addr_HouseNo: {
+      UserID: {
         type: Sequelize.STRING,
-      },
-      Addr_Street: {
-        type: Sequelize.STRING,
-      },
-      Addr_City: {
-        type: Sequelize.STRING,
-      },
-      PostalCode: {
-        type: Sequelize.STRING,
-      },
-      MobileNumber: {
-        type: Sequelize.STRING,
+        references: {
+          model: "users",
+          key: "UserID",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       created_at: {
         type: Sequelize.DATE,
@@ -81,6 +63,6 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("user_contacts");
   },
 };

@@ -2,71 +2,91 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("users", {
-      UserID: {
+    await queryInterface.createTable("visas", {
+      VisaID: {
         type: Sequelize.STRING,
         primaryKey: true,
       },
-      Email: {
+      VisaType: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Password: {
+      CountryOfIssue: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Image: {
+      VisaNumber: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      EmailVerified: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      Country: {
+      PassportNumber: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      FullName: {
+      HoldersName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       Nationality: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      Gender: {
+      DateOfIssue: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      ExpirationDate: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      EntryType: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      PurposeOfVisit: {
         type: Sequelize.STRING,
       },
-      Naturalized: {
-        type: Sequelize.BOOLEAN,
+      StayDuration: {
+        type: Sequelize.STRING,
       },
-      Birthday: {
+      IssuedBy: {
+        type: Sequelize.STRING,
+      },
+      VisaStatus: {
+        type: Sequelize.STRING,
+      },
+      Remarks: {
+        type: Sequelize.TEXT,
+      },
+      HoldersPhoneNumber: {
+        type: Sequelize.STRING,
+      },
+      HoldersEmail: {
+        type: Sequelize.STRING,
+      },
+      DateOfEntry: {
         type: Sequelize.DATE,
       },
-      BirthPlace: {
-        type: Sequelize.STRING,
+      DateOfExit: {
+        type: Sequelize.DATE,
       },
-      BirthCountry: {
-        type: Sequelize.STRING,
-      },
-      Height: {
+      VisaFee: {
         type: Sequelize.FLOAT,
       },
-      MaritalStatus: {
+      Fingerprint: {
         type: Sequelize.STRING,
       },
-      Addr_HouseNo: {
+      Photo: {
         type: Sequelize.STRING,
       },
-      Addr_Street: {
+      VisaApplicationID: {
         type: Sequelize.STRING,
-      },
-      Addr_City: {
-        type: Sequelize.STRING,
-      },
-      PostalCode: {
-        type: Sequelize.STRING,
-      },
-      MobileNumber: {
-        type: Sequelize.STRING,
+        references: {
+          model: "visa_applications",
+          key: "VisaApplicationID",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       created_at: {
         type: Sequelize.DATE,
@@ -81,6 +101,6 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("visas");
   },
 };
