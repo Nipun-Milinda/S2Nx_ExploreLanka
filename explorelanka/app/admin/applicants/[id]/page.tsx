@@ -14,8 +14,9 @@ import {
   TabPanel,
   Input,
   CardFooter,
-  Button
+  Button,
 } from "@material-tailwind/react";
+// import { CheckIcon } from "@heroicons/24/outline";
 import personalInfo from "./personalInfo";
 
 export default function page() {
@@ -66,16 +67,18 @@ export default function page() {
     req_status: "approved",
   });
 
+  const statusColor = {
+    pending: "orange",
+    monitored: "blue",
+    approved: "green",
+    rejected: "red",
+  }[userData.req_status];
 
   const data = [
     {
       label: "Personal Info",
       value: "perosnal",
-      desc: (
-        <>
-        {PersonalInfo}
-        </>
-      ),
+      desc: <>{PersonalInfo}</>,
     },
     {
       label: "Spouse Info",
@@ -150,10 +153,18 @@ export default function page() {
           </div>
 
           <div className="flex gap-3 items-center">
-            <Typography variant="paragraph" color="blue-gray" className="">
-              Interpol Status
-            </Typography>
-            <div className="w-5 h-5 bg-red-500 text-white px-2 py-1 rounded-2xl"></div>
+          <Chip
+            variant="ghost"
+            size="sm"
+            value={userData.req_status}
+            color={statusColor}
+          />
+          <Chip
+            variant="ghost"
+            size="sm"
+            value="Interpol Status"
+            color="red"
+          />
           </div>
         </div>
       </CardHeader>
@@ -183,12 +194,22 @@ export default function page() {
           </Tabs>
         </div>
       </CardBody>
+      <hr className="my-4" />
       <CardFooter>
         <div className="flex justify-end">
-        <Button color="green" style={{marginRight: 5}}>Approve</Button>
-        <Button color="red">Reject</Button>
+          <Button
+            color="red"
+            className="flex items-center gap-3"
+            style={{ marginRight: 5 }}
+          >
+            Reject
+          </Button>
+          <Button color="green" className="flex items-center gap-3">
+            Approve
+            {/* <CheckIcon class="h-6 w-6 text-gray-500" /> */}
+          </Button>
         </div>
-        </CardFooter>
+      </CardFooter>
     </Card>
   );
 }
