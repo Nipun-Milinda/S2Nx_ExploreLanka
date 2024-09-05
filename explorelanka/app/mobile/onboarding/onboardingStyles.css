@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex; /* Use flexbox to center */
+  justify-content: center; /* Horizontal centering */
+  align-items: flex-end; /* Align to the bottom */
+}
+
+.content {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 90px;
+}
