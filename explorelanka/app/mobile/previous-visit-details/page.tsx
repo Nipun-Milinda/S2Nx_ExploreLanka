@@ -8,18 +8,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 
-const visitReasons = [
-  { value: 'tourism', label: 'Tourism' },
-  { value: 'business', label: 'Business' },
-  { value: 'education', label: 'Education' },
-];
-
-const countriesVisited = [
-  { value: 'lk', label: 'Sri Lanka' },
-  { value: 'us', label: 'USA' },
-  { value: 'uk', label: 'UK' },
-];
-
 const visaTypes = [
   { value: 'Tourist', label: 'Tourist' },
   { value: 'Residence', label: 'Residence' },
@@ -68,19 +56,6 @@ const PreviousVisitDetails = () => {
             }
           />
         </div>
-      </div>
-
-      <div className="w-full my-4">
-        <p className="text-xl mb-1">Countries Visited</p>
-        <div className="w-full bg-gray-200 px-2 py-2 rounded-lg">
-          <MobileSelect label="Country" options={countriesVisited} />
-        </div>
-      </div>
-
-      <div className="w-full my-4 flex items-center">
-        <p className="text-xl mb-1">Was the visit satisfactory?</p>
-        {/* @ts-ignore */}
-        <Checkbox />
       </div>
 
       <div className="w-full my-4">
