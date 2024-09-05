@@ -4,26 +4,26 @@ import { Button } from "@mui/material";
 import "../onboardingStyles.css";
 import Link from "next/link";
 
-const page1 = () => {
+const page3 = () => {
   return (
-    <FullScreenImage imageUrl="/Onboarding1.png" zoom={1.7}>
+    <FullScreenImage imageUrl="/Onboarding3.png">
       <div className="container">
         <div className="content">
           <h1 className="text-4xl font-Montserrat font-bold">
-            Welcome to ExploreLanka
+            Let the Journey Guide You
           </h1>
           <p className="mt-4 text-lg font-Poppins">
-            Explore a land rich in history, culture, and natural beauty. Your
-            adventure through Sri Lanka begins here.
+            Your perfect adventure is already planned—just follow the quest and
+            enjoy the ride.
           </p>
-          <Link href="./2">
+          <Link href="./4">
             <Button
               variant="contained"
               size="large"
               className="font-poppins font-bold mt-5"
               style={{ backgroundColor: "#0C6478", width: "90%" }}
             >
-              Begin the Adventure →
+              Next →
             </Button>
           </Link>
         </div>
@@ -32,4 +32,4 @@ const page1 = () => {
   );
 };
 
-export default page1;
+export default page3;
