@@ -10,14 +10,14 @@ const ApplicationsByCountry = () => {
     datasets: [
       {
         label: "Applications by Country",
-        data: [200, 150, 300, 250, 180, 220],
+        data: [500, 150, 200, 100, 180, 220],
         backgroundColor: [
-          "#1a1a1a",
-          "#2e2e2e",
-          "#404040",
-          "#5c5c5c",
-          "#737373",
-          "#8c8c8c",
+          "#FF3B30",
+          "#007AFF",
+          "#FFCC00",
+          "#34C759",
+          "#AF52DE",
+          "#24C4",
         ],
         hoverOffset: 4,
       },
@@ -26,7 +26,7 @@ const ApplicationsByCountry = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // To customize the chart size
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
@@ -55,8 +55,8 @@ const ApplicationsByCountry = () => {
       <div
         style={{
           width: "100%",
-          height: "300px",
-          padding: 10,  
+          height: "500px",
+          padding: 10,
         }}
       >
         <Pie data={data} options={options} />

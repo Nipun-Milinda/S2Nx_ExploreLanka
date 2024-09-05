@@ -1,16 +1,18 @@
-"use client";
-import { Card, CardBody, CardHeader } from "@material-tailwind/react";
-import dynamic from "next/dynamic";
-
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
+} from "@material-tailwind/react";
+import Chart from "react-apexcharts";
 
 const chartConfig = {
-  type: "line",
+  type: "bar",
   height: 400,
   series: [
     {
-      name: "Visa Applications",
-      data: [150, 10, 300, 280, 500, 60, 700, 650, 800],
+      name: "Sales",
+      data: [50, 40, 300],
     },
   ],
   options: {
@@ -25,13 +27,12 @@ const chartConfig = {
     dataLabels: {
       enabled: false,
     },
-    colors: ["#FF9F43"],
-    stroke: {
-      lineCap: "round",
-      curve: "smooth",
-    },
-    markers: {
-      size: 0,
+    colors: ["#020617"],
+    plotOptions: {
+      bar: {
+        columnWidth: "50%",
+        borderRadius: 2,
+      },
     },
     xaxis: {
       axisTicks: {
@@ -43,31 +44,18 @@ const chartConfig = {
       labels: {
         style: {
           colors: "#616161",
-          fontSize: "12px",
+          fontSize: "16px",
           fontFamily: "inherit",
           fontWeight: 600,
         },
       },
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: ["Tourist", "Residential", "Other"],
     },
     yaxis: {
       labels: {
         style: {
           colors: "#616161",
-          fontSize: "12px",
+          fontSize: "16px",
           fontFamily: "inherit",
           fontWeight: 400,
         },
@@ -90,20 +78,11 @@ const chartConfig = {
     fill: {
       opacity: 0.8,
     },
-    tooltip: {
-      theme: "dark",
-    },
   },
 };
-
-export default function VisaApplicationsOverTime() {
+export default function Example() {
   return (
-    <Card
-      style={{
-        width: "100%",
-        paddingBlock: "5px",
-      }}
-    >
+    <Card style={{ width: "48%" }}>
       <CardHeader
         floated={false}
         shadow={false}
@@ -111,11 +90,13 @@ export default function VisaApplicationsOverTime() {
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
       >
         <h2 className="text-xl font-bold mb-4 text-black">
-          Visa Applications Over Time
+          Visa Types of Applicants
         </h2>
       </CardHeader>
       <CardBody className="px-2 pb-0">
-        <Chart {...chartConfig} />
+        <div style={{ width: "100%", margin: "0 auto" }}>
+          <Chart {...chartConfig} />
+        </div>
       </CardBody>
     </Card>
   );
