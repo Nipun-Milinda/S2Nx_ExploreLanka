@@ -1,40 +1,24 @@
 "use client";
 import React from "react";
 import { Card, Typography } from "@material-tailwind/react";
-import { ArrowUpIcon } from "@heroicons/react/24/outline";
 
 type DashboardCardProps = {
   title: string;
   value: string;
-  change: string;
-  changeType: string;
 };
 
-const DashboardCard = ({
-  title,
-  value,
-  change,
-  changeType,
-}: DashboardCardProps) => (
-  <Card className="flex justify-between items-center bg-black text-white p-4 shadow-lg rounded-lg">
-    <div>
-      <Typography variant="h5" className="font-bold text-white">
-        {value}
-      </Typography>
-      <Typography variant="small" className="text-gray-400">
+const DashboardCard = ({ title, value }: DashboardCardProps) => (
+  <Card className="bg-black text-white p-6 shadow-lg rounded-lg  sm:w-1/2 lg:w-1/5 h-auto">
+    <div className="flex flex-col items-center justify-center h-full">
+      <Typography variant="h5" className="text-white text-center mb-4">
         {title}
       </Typography>
-    </div>
-    <div className="flex items-center">
       <Typography
-        variant="small"
-        className={`font-bold ${
-          changeType === "increase" ? "text-green-500" : "text-red-500"
-        }`}
+        variant="h1"
+        className="font-bold text-white text-center mt- text-4xl sm:text-5xl lg:text-6xl"
       >
-        {change}
+        {value}
       </Typography>
-      <ArrowUpIcon className="h-6 w-6 ml-2 text-green-500" />
     </div>
   </Card>
 );
@@ -43,40 +27,37 @@ const StatsCards = () => {
   const stats = [
     {
       title: "Total Applications",
-      value: "$1200",
-      change: "+5%",
+      value: "1200",
       changeType: "increase",
     },
     {
       title: "Approved Applications",
-      value: "$850",
-      change: "+3%",
+      value: "850",
       changeType: "increase",
     },
     {
       title: "Pending Applications",
-      value: "$250",
-      change: "-2%",
+      value: "250",
       changeType: "decrease",
     },
     {
       title: "Rejected Applications",
-      value: "$100",
-      change: "+1%",
+      value: "100",
       changeType: "increase",
     },
   ];
 
   return (
-    <div className="flex flex-wrap justify-between ">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
       {stats.map((stat, index) => (
-        <DashboardCard
-          key={index}
-          title={stat.title}
-          value={stat.value}
-          change={stat.change}
-          changeType={stat.changeType}
-        />
+        <DashboardCard key={index} title={stat.title} value={stat.value} />
       ))}
     </div>
   );

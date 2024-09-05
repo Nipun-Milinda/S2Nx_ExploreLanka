@@ -103,26 +103,21 @@ const chartConfig = {
 
 export default function VisaApplicationsOverTime() {
   return (
-    <Card>
+    <Card
+      style={{
+        width: "48%",
+        paddingBlock: "5px",
+      }}
+    >
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
       >
-        <div>
-          <Typography variant="h6" color="blue-gray">
-            Visa Applications Over Time
-          </Typography>
-          <Typography
-            variant="small"
-            color="gray"
-            className="max-w-sm font-normal"
-          >
-            This chart shows the trend of visa applications over the selected
-            time period.
-          </Typography>
-        </div>
+        <h2 className="text-xl font-bold mb-4 text-black">
+          Visa Applications Over Time
+        </h2>
       </CardHeader>
       <CardBody className="px-2 pb-0">
         <Chart {...chartConfig} />
