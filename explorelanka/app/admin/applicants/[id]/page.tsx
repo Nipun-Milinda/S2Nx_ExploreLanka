@@ -12,7 +12,12 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
   Input,
+  Textarea,
   CardFooter,
   Button,
 } from "@material-tailwind/react";
@@ -29,6 +34,8 @@ import documents from "./documents";
 
 export default function page() {
   const { id } = useParams();
+  const [openReject, setOpenReject] = React.useState(false);
+  const [openAccept, setOpenAccept] = React.useState(false);
   const [userData, setUserData] = React.useState({
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
     name: "John Michael",
@@ -159,9 +166,9 @@ export default function page() {
 
     const [documentsData, setDocumentsData] = React.useState({
         profile_img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        passport_img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        signature: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        fingerprint: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+        passport_img: "https://i1.wp.com/media.globalnews.ca/videostatic/news/4m4viy623q-fyim7z1d4p/JPEG_ONLINE_PASSPORT_KE.jpg?w=1200&quality=70&strip=all",
+        signature: "https://repository-images.githubusercontent.com/8805592/85279ffa-7f4a-4880-8e41-59e8032b0f71",
+        fingerprint: "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L2pvYjY3My0wNjktdi5qcGc.jpg",
     }
     );
 
@@ -181,10 +188,10 @@ export default function page() {
   }));
 
   const PersonalInfo = personalInfo({
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    nationality: "American",
-    gender: "Male",
+    img: userData.img,
+    name: userData.name,
+    nationality: userData.nationality,
+    gender: userData.gender,
     dob: "12/12/1990",
     birth_place: "USA",
     birth_country: "USA",
@@ -268,9 +275,16 @@ export default function page() {
   });
 
   const EmergencyInfo = emergencyInfo({
-    ownCountryRows,
-    sriLankaRows,
+    tableRows: ownCountryRows,
+    tableRowsSl: sriLankaRows,
     });
+
+    const DocumentInfo = documents({
+        profile_image: documentsData.profile_img,
+  passport_copy: documentsData.passport_img,
+  signature: documentsData.signature,
+  finger_print: documentsData.fingerprint,
+    })
 
   const statusColor = {
     pending: "orange",
@@ -323,12 +337,12 @@ export default function page() {
     {
       label: "Documents",
       value: "documents",
-      desc: `We're not always in the position that we want to be at.
-        We're constantly growing. We're constantly making mistakes. We're
-        constantly trying to express ourselves and actualize our dreams.`,
+      desc: <>{DocumentInfo}</>,
     },
   ];
 
+  const handleOpenReject = () => setOpenReject(!openReject);
+  const handleOpenAccept = () => setOpenAccept(!openAccept);
   return (
     <Card className="h-full w-full p-4">
       <CardHeader
@@ -365,7 +379,7 @@ export default function page() {
 
       <CardBody className="w-full">
         <div style={{ width: "100%" }}>
-          <Tabs value="html" orientation="vertical">
+          <Tabs value="perosnal" orientation="vertical">
             <div style={{ width: "80%" }}>
               <TabsBody>
                 {data.map(({ value, desc }) => (
@@ -394,15 +408,115 @@ export default function page() {
             color="red"
             className="flex items-center gap-3"
             style={{ marginRight: 5 }}
+            onClick={handleOpenReject}
           >
             Reject
           </Button>
-          <Button color="green" className="flex items-center gap-3">
+          <Button color="green" className="flex items-center gap-3" onClick={handleOpenAccept}>
             Approve
             {/* <CheckIcon class="h-6 w-6 text-gray-500" /> */}
           </Button>
         </div>
       </CardFooter>
+      <Dialog open={openReject} size="lg" handler={handleOpenReject}>
+        <div className="flex items-center justify-between">
+          <DialogHeader className="flex flex-col items-start">
+            {" "}
+            <Typography className="mb-1" variant="h4">
+                Reject Application {id}
+            </Typography>
+          </DialogHeader>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="mr-3 h-5 w-5"
+            onClick={handleOpenReject}
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        <DialogBody>
+          <Typography className="mb-10 -mt-7 " color="gray" variant="lead">
+            Write the reason of rejecting the application.
+          </Typography>
+
+          <Chip
+              variant="ghost"
+              size="sm"
+              value={contactData.email}
+              color= "black"
+              style={{width: "auto"}}
+            />
+          <div className="">
+            <div style={{marginBottom: 10, marginTop: 10}}>
+            <Textarea label="Reason" />
+            </div>
+            
+            <Textarea label="Message" />
+          </div>
+        </DialogBody>
+        <DialogFooter className="space-x-2">
+          <Button variant="text" color="gray" onClick={handleOpenReject}>
+            cancel
+          </Button>
+          <Button variant="gradient" color="gray" onClick={handleOpenReject}>
+            send message
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
+      <Dialog open={openAccept} size="lg" handler={handleOpenAccept}>
+        <div className="flex items-center justify-between">
+          <DialogHeader className="flex flex-col items-start">
+            {" "}
+            <Typography className="mb-1" variant="h4">
+                Accept Application {id}
+            </Typography>
+          </DialogHeader>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="mr-3 h-5 w-5"
+            onClick={handleOpenReject}
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        <DialogBody>
+          <Chip
+              variant="ghost"
+              size="sm"
+              value={contactData.email}
+              color= "black"
+              style={{width: "auto"}}
+            />
+          <div className="">
+            <div style={{marginBottom: 10, marginTop: 10}}>
+            <Input label="Visa Charges" />
+            </div>
+            
+            <Textarea label="Message" />
+          </div>
+        </DialogBody>
+        <DialogFooter className="space-x-2">
+          <Button variant="text" color="gray" onClick={handleOpenAccept}>
+            cancel
+          </Button>
+          <Button variant="gradient" color="gray" onClick={handleOpenAccept}>
+            send message
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </Card>
   );
 }

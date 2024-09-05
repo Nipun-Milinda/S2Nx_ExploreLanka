@@ -52,7 +52,12 @@ export default function emergencyInfo({
 }: TableRowProps & SriLankaTableRowProps) {
   return (
     <div className="w-full">
-      <Card className="h-full w-full overflow-scroll">
+      <Typography variant="h6">From Own Country</Typography>
+      <hr></hr>
+      <Card
+        className="h-full w-full overflow-scroll"
+        style={{ marginBottom: 20, marginTop: 10 }}
+      >
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -124,7 +129,9 @@ export default function emergencyInfo({
         </table>
       </Card>
 
-      <Card className="h-full w-full overflow-scroll">
+      <Typography variant="h6">From Sri Lanka</Typography>
+      <hr></hr>
+      <Card className="h-full w-full overflow-scroll" style={{marginTop: 10}}>
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -145,53 +152,55 @@ export default function emergencyInfo({
             </tr>
           </thead>
           <tbody>
-            {tableRowsSl.map(({ name, mobile, relationship, address }, index) => {
-              const isLast = index === tableRowsSl.length - 1;
-              const classes = isLast
-                ? "p-4"
-                : "p-4 border-b border-blue-gray-50";
+            {tableRowsSl.map(
+              ({ name, mobile, relationship, address }, index) => {
+                const isLast = index === tableRowsSl.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
 
-              return (
-                <tr key={name}>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {name}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {mobile}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {relationship}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {address}
-                    </Typography>
-                  </td>
-                </tr>
-              );
-            })}
+                return (
+                  <tr key={name}>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {name}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mobile}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {relationship}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {address}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
+              }
+            )}
           </tbody>
         </table>
       </Card>
