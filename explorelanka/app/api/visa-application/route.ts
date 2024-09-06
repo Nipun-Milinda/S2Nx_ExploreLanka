@@ -68,8 +68,10 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     console.log("Request Body:", body);
 
-    const updatedVisaApplication = await updateVisaApplication(req?.body);
+    const updatedVisaApplication = await updateVisaApplication(body);
     console.log("Updated Visa Application:", updatedVisaApplication);
+
+    
 
     return NextResponse.json({
       status: 200,
