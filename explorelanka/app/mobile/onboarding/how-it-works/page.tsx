@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import FullScreenImage from "./fullScreenImage";
 import { Button } from "@mui/material";

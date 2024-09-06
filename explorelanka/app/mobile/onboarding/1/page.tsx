@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import FullScreenImage from "@/components/fullScreenImage";
 import { Button } from "@mui/material";
 import "../onboardingStyles.css";
 import Link from "next/link";
+import MenuSimple from "./MenuSimple";
 
 const page1 = () => {
   return (
@@ -16,6 +19,7 @@ const page1 = () => {
             Explore a land rich in history, culture, and natural beauty. Your
             adventure through Sri Lanka begins here.
           </p>
+          <MenuSimple />
           <Link href="./2">
             <Button
               variant="contained"
