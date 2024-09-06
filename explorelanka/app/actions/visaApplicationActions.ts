@@ -109,3 +109,19 @@ export async function deleteVisaApplication(VisaApplicationID: string) {
     return null;
   }
 }
+
+export async function getAllVisaApplications(token: string) {
+  try {
+    const visa = await fetch(`http://localhost:3000/api/visa-application`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+    return visa;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
