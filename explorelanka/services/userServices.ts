@@ -75,11 +75,24 @@ export async function getUserById(userId: UUID) {
 }
 
 // Update a user by ID
-export async function updateUser(userId: UUID, data : Date) {
+export async function updateUser(UserID, data) {
   try {
-    const user = await getUserById(userId);
+    // Find the user by primary key
+    const user = await User.findByPk(UserID);
+
+    // If user not found, throw an error
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Update the user with the provided data
     await user.update(data);
-    return user;
+
+    // Reload the user to get the latest data
+    await user.reload();
+
+    return user; // Return the updated user object
+
   } catch (error: any) {
     throw new Error(`Failed to update user: ${error.message}`);
   }

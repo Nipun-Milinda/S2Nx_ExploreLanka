@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createUser, authenticateUser } from "@/services/userServices";
-import { roleBasedAuth } from "@/middleware/roleBasedAuth";
+import { authenticateUser } from "@/services/userServices";
 
 // Public login route
 export async function POST(req: NextRequest) {
