@@ -4,7 +4,9 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("invoices", {
       InvoiceID: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       Amount: {
@@ -24,7 +26,7 @@ module.exports = {
         allowNull: false,
       },
       UserID: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         references: {
           model: "users",
           key: "UserID",
@@ -33,7 +35,7 @@ module.exports = {
         onDelete: "SET NULL",
       },
       VisaApplicationID: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",

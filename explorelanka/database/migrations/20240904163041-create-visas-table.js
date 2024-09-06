@@ -4,7 +4,9 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("visas", {
       VisaID: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       VisaType: {
@@ -80,7 +82,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       VisaApplicationID: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",
