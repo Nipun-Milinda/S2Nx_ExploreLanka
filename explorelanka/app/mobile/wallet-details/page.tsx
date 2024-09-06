@@ -5,6 +5,8 @@ import MobileTextInput from '@/components/mobileTextInput';
 import { Button, Checkbox } from '@material-tailwind/react';
 import currencies from './currencies-with-flags.json';
 import CustomDropdown from './customDropdown';
+import { CSSTransition } from 'react-transition-group';
+import './WalletDetails.css';
 
 const WalletDetails = () => {
   const [walletId, setWalletId] = useState<string>('');
@@ -52,10 +54,18 @@ const WalletDetails = () => {
           <Checkbox
             checked={creditCardAvailable}
             onChange={(e) => setCreditCardAvailable(e.target.checked)}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            crossOrigin={undefined}
           />
         </div>
 
-        {creditCardAvailable && (
+        <CSSTransition
+          in={creditCardAvailable}
+          timeout={300}
+          classNames="card-input"
+          unmountOnExit
+        >
           <div className="w-full my-2">
             <div className="w-full my-2 bg-gray-200 p-4 rounded-lg">
               <div className="w-full my-2">
@@ -66,7 +76,7 @@ const WalletDetails = () => {
               </div>
             </div>
           </div>
-        )}
+        </CSSTransition>
       </div>
 
       <div className="w-full p-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
