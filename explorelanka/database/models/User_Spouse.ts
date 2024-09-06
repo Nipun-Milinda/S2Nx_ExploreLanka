@@ -18,7 +18,9 @@ if (sequelize) {
   UserSpouse.init(
     {
       UserSpouseID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       Sp_FullName: {
@@ -44,18 +46,22 @@ if (sequelize) {
         type: DataTypes.DATE,
       },
       UserID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "UserID",
         },
+        allowNull: false,
       },
       VisaApplicationID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        allowNull: false,
       },
     },
     {

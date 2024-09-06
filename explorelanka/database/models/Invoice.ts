@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../db-connection";
+import { UUID } from "crypto";
 
 class Invoice extends Model {
   declare InvoiceID: string;
@@ -15,7 +16,9 @@ if (sequelize) {
   Invoice.init(
     {
       InvoiceID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       Amount: {
@@ -36,7 +39,7 @@ if (sequelize) {
         allowNull: false,
       },
       UserID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "UserID",
@@ -44,12 +47,14 @@ if (sequelize) {
         allowNull: false,
       },
       VisaApplicationID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",
         },
-        allowNull: true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        allowNull: false,
       },
     },
     {

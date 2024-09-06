@@ -18,7 +18,9 @@ if (sequelize) {
   UserContact.init(
     {
       UserContactID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       Emg_Name: {
@@ -50,15 +52,17 @@ if (sequelize) {
         allowNull: false,
       },
       VisaApplicationID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",
         },
-        allowNull: true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        allowNull: false,
       },
       UserID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "UserID",

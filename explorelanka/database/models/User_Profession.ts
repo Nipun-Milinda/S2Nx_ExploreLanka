@@ -19,7 +19,9 @@ if (sequelize) {
   UserProfession.init(
     {
       UserProfessionID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       Employer: {
@@ -48,18 +50,22 @@ if (sequelize) {
         type: new DataTypes.STRING(),
       },
       UserID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "UserID",
         },
+        allowNull: false,
       },
       VisaApplicationID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        allowNull: false,
       },
     },
     {

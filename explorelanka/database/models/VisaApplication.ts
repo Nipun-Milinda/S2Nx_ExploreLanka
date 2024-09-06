@@ -60,7 +60,9 @@ if (sequelize) {
   VisaApplication.init(
     {
       VisaApplicationID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       FullName: {
@@ -210,11 +212,12 @@ if (sequelize) {
         type: new DataTypes.STRING(),
       },
       UserID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "UserID",
         },
+        allowNull: false,
       },
       CurrentPassportID: {
         type: DataTypes.STRING,

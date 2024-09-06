@@ -1,8 +1,9 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../db-connection";
+import { UUID } from "crypto";
 
 class Passport extends Model {
-  declare PassportID: string;
+  declare PassportID: UUID;
   declare PassportNo: string;
   declare PlaceOfIssue: string | null;
   declare DateOfIssue: Date | null;
@@ -16,7 +17,9 @@ if (sequelize) {
   Passport.init(
     {
       PassportID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       PassportNo: {
@@ -40,11 +43,12 @@ if (sequelize) {
         allowNull: false,
       },
       UserID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "UserID",
         },
+        allowNull: false,
       },
     },
     {

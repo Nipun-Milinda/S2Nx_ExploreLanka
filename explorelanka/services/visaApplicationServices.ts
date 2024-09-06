@@ -1,3 +1,4 @@
+import { UUID } from "crypto";
 import {
   VisaApplication,
   UserContact,
@@ -100,14 +101,81 @@ export async function getVisaApplication(queryParams: QueryParams) {
   }
 }
 
-export async function getVisaApplicationById(visaApplicationID: number) {
+export async function getVisaApplicationById(visaApplicationID: UUID) {
   try {
     const visaApplication = await VisaApplication?.findOne({
       where: {
         VisaApplicationID: visaApplicationID,
       },
+      include: [
+        // {
+        //   model: UserContact,
+        //   as: "localContacts",
+        //   required: false,
+        //   where: { Type: "local" },
+        //   foreignKey: "UserID",
+        // },
+        // {
+        //   model: UserContact,
+        //   as: "lkContacts",
+        //   required: false,
+        //   where: { Type: "lk" },
+        //   foreignKey: "UserID",
+        // },
+        // {
+        //   model: UserSpouse,
+        //   as: "userSpouse",
+        //   required: false,
+        // },
+        // {
+        //   model: Passport,
+        //   as: "currentPassport",
+        //   required: false,
+        //   where: { CurrentPassport: true },
+        // },
+      ],
     });
-    return visaApplication;
+
+    const localContact = await UserContact?.findOne({
+      where: {
+        UserID: visaApplication?.UserID,
+        Type: "local",
+      },
+    });
+
+    const lkContact = await UserContact?.findOne({
+      where: {
+        UserID: visaApplication?.UserID,
+        Type: "lk",
+      },
+    });
+
+    const userSpouse = await UserSpouse?.findOne({
+      where: {
+        UserID: visaApplication?.UserID,
+      },
+    });
+
+    const currentPassport = await Passport?.findOne({
+      where: {
+        PassportID: visaApplication?.CurrentPassportID,
+      },
+    });
+
+    const oldPassport = await Passport?.findOne({
+      where: {
+        PassportID: visaApplication?.OldPassportID,
+      },
+    });
+
+    return {
+      ...visaApplication?.dataValues,
+      localContact: localContact?.dataValues,
+      lkContact: lkContact?.dataValues,
+      userSpouse: userSpouse?.dataValues,
+      currentPassport: currentPassport?.dataValues,
+      oldPassport: oldPassport?.dataValues,
+    };
   } catch (error) {
     console.error(error);
   }
@@ -117,44 +185,81 @@ export async function createVisaApplication(
   visaApplication: any,
   userContact: any,
   passport: any,
-  UserProfession: any,
-  UserSpouse: any
+  userProfession: any,
+  userSpouse?: any
 ) {
   try {
-    const newVisaApplication = await VisaApplication?.create(visaApplication);
+    let currentPassport;
+    let oldPassport;
+
+    const newPassport = await Passport?.findOne({
+      where: {
+        PassportNo: passport?.currentPassport?.PassportNo,
+      },
+    });
+
+    if (newPassport) {
+      currentPassport = newPassport;
+    } else {
+      currentPassport = await Passport?.create(passport?.currentPassport);
+    }
+
+    const newOldPassport = await Passport?.findOne({
+      where: {
+        PassportNo: passport?.oldPassport?.PassportNo,
+      },
+    });
+
+    if (newOldPassport) {
+      oldPassport = newOldPassport;
+    } else {
+      oldPassport = await Passport?.create(passport?.oldPassport);
+    }
+
+    console.log("Current Passport:", currentPassport);
+    console.log("Old Passport:", oldPassport);
+
+    const newVisaApplication = await VisaApplication?.create({
+      ...visaApplication,
+      CurrentPassportID: currentPassport?.PassportID,
+      OldPassportID: oldPassport?.PassportID,
+    });
+
     const newOwnUserContact = await UserContact?.create({
       ...userContact?.ownUserContact,
       VisaApplicationID: newVisaApplication?.VisaApplicationID,
     });
-    const newLKUserContact = await UserContact?.create({
-      ...userContact?.lkUserContact,
-      VisaApplicationID: newVisaApplication?.VisaApplicationID,
-    });
-    const newPassport = await Passport?.create({
-      ...passport?.passport,
-      VisaApplicationID: newVisaApplication?.VisaApplicationID,
-    });
-    const newOldPassport = await Passport?.create({
-      ...passport?.oldPassport,
-      VisaApplicationID: newVisaApplication?.VisaApplicationID,
-    });
+
+    let newLKUserContact;
+    if (userContact?.lkUserContact) {
+      newLKUserContact = await UserContact?.create({
+        ...userContact?.lkUserContact,
+        VisaApplicationID: newVisaApplication?.VisaApplicationID,
+      });
+    }
+
     const newUserProfession = await UserProfession?.create({
-      ...UserProfession,
-      VisaApplicationID: newVisaApplication?.VisaApplicationID,
-    });
-    const newUserSpouse = await UserSpouse?.create({
-      ...UserSpouse,
+      ...userProfession,
       VisaApplicationID: newVisaApplication?.VisaApplicationID,
     });
 
+    let newUserSpouse;
+    if (userSpouse) {
+      newUserSpouse = await UserSpouse?.create({
+        ...userSpouse,
+        VisaApplicationID: newVisaApplication?.VisaApplicationID,
+      });
+    }
+
+    // return newVisaApplication.dataValues;
     return {
-      ...newVisaApplication,
-      ownCountryContact: newOwnUserContact,
-      lkContact: newLKUserContact,
-      currentPassport: newPassport,
-      previousPassport: newOldPassport,
-      profession: newUserProfession,
-      spouse: newUserSpouse,
+      ...newVisaApplication.dataValues,
+      ownCountryContact: newOwnUserContact?.dataValues,
+      lkContact: newLKUserContact?.dataValues,
+      currentPassport: newPassport?.dataValues,
+      previousPassport: newOldPassport?.dataValues,
+      profession: newUserProfession?.dataValues,
+      spouse: newUserSpouse?.dataValues,
     };
   } catch (error) {
     console.error(error);
@@ -177,7 +282,7 @@ export async function updateVisaApplication(visaApplication: any) {
   }
 }
 
-export async function deleteVisaApplication(visaApplicationID: number) {
+export async function deleteVisaApplication(visaApplicationID: UUID) {
   try {
     const deletedVisaApplication = await VisaApplication?.destroy({
       where: {

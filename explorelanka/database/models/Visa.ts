@@ -31,7 +31,9 @@ if (sequelize) {
   Visa.init(
     {
       VisaID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
       VisaType: {
@@ -119,11 +121,14 @@ if (sequelize) {
         allowNull: true,
       },
       VisaApplicationID: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         references: {
           model: "visa_applications",
           key: "VisaApplicationID",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        allowNull: false,
       },
     },
     {
