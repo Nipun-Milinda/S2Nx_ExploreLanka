@@ -6,7 +6,7 @@ import { Input } from '@material-tailwind/react';
 interface MobileTextInputProps {
   label: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (x: string) => void;
 }
 
 const MobileTextInput: React.FC<MobileTextInputProps> = (props) => {
@@ -19,7 +19,7 @@ const MobileTextInput: React.FC<MobileTextInputProps> = (props) => {
           className: 'before:mr-0 after:ml-0',
         }}
         value={props.value}
-        onChange={props.onChange}
+        onChange={(e) => props.onChange(e.target.value)}
       />
     </div>
   );
