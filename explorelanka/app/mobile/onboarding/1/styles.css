@@ -1,0 +1,18 @@
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown .ReactFlagsSelect-module_flagsSelect__2pW9P {
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
