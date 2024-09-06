@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getAllUsers, updateUser, deleteUser } from "@/services/userServices";
-import { UUID } from "crypto";
+import { NextResponse } from "next/server";
+import { getAllUsers } from "@/services/userServices";
 
 // Get all users
 export async function GET() {

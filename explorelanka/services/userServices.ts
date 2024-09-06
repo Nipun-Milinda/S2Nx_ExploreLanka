@@ -75,7 +75,7 @@ export async function getUserById(userId: UUID) {
 }
 
 // Update a user by ID
-export async function updateUser(UserID, data) {
+export async function updateUser(UserID: UUID, data: any) {
   try {
     // Find the user by primary key
     const user = await User.findByPk(UserID);
