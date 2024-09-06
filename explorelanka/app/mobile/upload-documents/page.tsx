@@ -17,7 +17,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const Page = () => {
+const uploadDocuments = () => {
   const [photographName, setPhotographName] = useState<string | null>(null);
   const [passportName, setPassportName] = useState<string | null>(null);
   const [fingerprintName, setFingerprintName] = useState<string | null>(null);
@@ -180,4 +180,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default uploadDocuments;
