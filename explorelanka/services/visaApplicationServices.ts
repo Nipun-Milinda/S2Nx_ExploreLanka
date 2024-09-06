@@ -232,7 +232,8 @@ export async function createVisaApplication(
 
 export async function updateVisaApplication(visaApplication: any) {
   try {
-    const updatedVisaApplication = await VisaApplication?.update(
+    console.log("Visa Application: ", visaApplication);
+    const affected = await VisaApplication?.update(
       visaApplication,
       {
         where: {
@@ -240,7 +241,18 @@ export async function updateVisaApplication(visaApplication: any) {
         },
       }
     );
-    return updatedVisaApplication;
+
+    let updatedVisaApplication;
+
+    if (affected && affected[0] > 0) {
+      updatedVisaApplication = await VisaApplication?.findOne({
+        where: {
+          VisaApplicationID: visaApplication?.VisaApplicationID,
+        },
+      });
+    }
+
+    return updatedVisaApplication?.dataValues;
   } catch (error) {
     console.error(error);
   }
