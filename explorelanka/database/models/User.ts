@@ -5,6 +5,7 @@ class User extends Model {
   declare UserID: string;
   declare Email: string;
   declare Password: string;
+  declare Role: string;
   declare Image: string | null;
   declare EmailVerified: boolean;
   declare Country: string | null;
@@ -21,7 +22,7 @@ class User extends Model {
   declare Addr_Street: string | null;
   declare Addr_City: string | null;
   declare PostalCode: string | null;
-  declare MobileNumber: string;
+  declare MobileNumber: string | null;
 }
 
 if (sequelize) {
@@ -34,66 +35,84 @@ if (sequelize) {
         primaryKey: true,
       },
       Email: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       Password: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      Role: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       Image: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       EmailVerified: {
-        type: new DataTypes.BOOLEAN(),
-        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       Country: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       FullName: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       Nationality: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       Gender: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       Naturalized: {
-        type: new DataTypes.BOOLEAN(),
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
       },
       Birthday: {
         type: DataTypes.DATE,
+        allowNull: true,
       },
       BirthPlace: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       BirthCountry: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       Height: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
+        allowNull: true,
       },
       MaritalStatus: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       Addr_HouseNo: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       Addr_Street: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       Addr_City: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       PostalCode: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       MobileNumber: {
-        type: new DataTypes.STRING(),
-        allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
