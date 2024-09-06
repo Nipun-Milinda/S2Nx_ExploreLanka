@@ -5,6 +5,7 @@ class User extends Model {
   declare UserID: string;
   declare Email: string;
   declare Password: string;
+  declare Role: string;
   declare Image: string | null;
   declare EmailVerified: boolean;
   declare Country: string | null;
@@ -38,6 +39,10 @@ if (sequelize) {
         allowNull: false,
       },
       Password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      Role: {
         type: DataTypes.STRING,
         allowNull: false,
       },

@@ -17,6 +17,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      Role: {
+        type: Sequelize.ENUM("Admin", "User"),
+        defaultValue: "User",
+        allowNull: false,
+      },
       Image: {
         type: Sequelize.STRING,
       },
@@ -29,7 +34,6 @@ module.exports = {
       },
       FullName: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       Nationality: {
         type: Sequelize.STRING,
