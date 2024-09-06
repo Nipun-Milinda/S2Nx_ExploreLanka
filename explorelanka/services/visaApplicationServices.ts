@@ -51,42 +51,6 @@ export async function getVisaApplication(queryParams: QueryParams) {
       limit,
       offset,
       order: [[sortBy, sortOrder]],
-      include: [
-        {
-          model: UserContact,
-          as: "localContacts",
-          required: false,
-          where: { Type: "local" },
-        },
-        {
-          model: UserContact,
-          as: "lkContacts",
-          required: false,
-          where: { Type: "lk" },
-        },
-        {
-          model: UserSpouse,
-          as: "userSpouse",
-          required: false,
-        },
-        {
-          model: Passport,
-          as: "currentPassport",
-          required: false,
-          where: { CurrentPassport: true },
-        },
-        {
-          model: Passport,
-          as: "previousPassport",
-          required: false,
-          where: { CurrentPassport: false },
-        },
-        {
-          model: UserProfession,
-          as: "userProfession",
-          required: false,
-        },
-      ],
     });
 
     return {
