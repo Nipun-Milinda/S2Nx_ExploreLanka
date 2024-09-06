@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "next/navigation";
 import {
   Card,
@@ -32,14 +32,19 @@ import emergencyInfo from "./emergencyInfo";
 import walletInfo from "./walletInfo";
 import documents from "./documents";
 
+// import {countries} from 'country-data';
+import { countries } from 'country-data';
+
 export default function page() {
   const { id } = useParams();
   const [openReject, setOpenReject] = React.useState(false);
   const [openAccept, setOpenAccept] = React.useState(false);
+  const [interpolData, setInterpolData] = React.useState({});
+  const [interpoleStaus, setInterpoleStatus] = React.useState("Fine");
   const [userData, setUserData] = React.useState({
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    nationality: "American",
+    name: "Manley Solide",
+    nationality: "Haiti",
     gender: "Male",
     dob: "12/12/1990",
     birth_place: "USA",
@@ -141,36 +146,69 @@ export default function page() {
 
   const [emergencyDataSl, setEmergencyDataSl] = React.useState([
     {
-        name: "John Michael",
-        mobile: "0712345678",
-        relationship: "Father",
-        address_l1: "No.90",
-        address_l2: "Colombo",
-        address_l3: "Sri Lanka",
-      },
-      {
-        name: "Jane Michael",
-        mobile: "0712345678",
-        relationship: "Mother",
-        address_l1: "No.90",
-        address_l2: "Colombo",
-        address_l3: "Sri Lanka",
-      },
-    ]);
+      name: "John Michael",
+      mobile: "0712345678",
+      relationship: "Father",
+      address_l1: "No.90",
+      address_l2: "Colombo",
+      address_l3: "Sri Lanka",
+    },
+    {
+      name: "Jane Michael",
+      mobile: "0712345678",
+      relationship: "Mother",
+      address_l1: "No.90",
+      address_l2: "Colombo",
+      address_l3: "Sri Lanka",
+    },
+  ]);
 
-    const [walletData, setWalletData] = React.useState({
-        available_money: "10000",
-        card_name: "Visa",
-        amount_spent: "2000"
-    });
+  const [walletData, setWalletData] = React.useState({
+    available_money: "10000",
+    card_name: "Visa",
+    amount_spent: "2000",
+  });
 
-    const [documentsData, setDocumentsData] = React.useState({
-        profile_img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        passport_img: "https://i1.wp.com/media.globalnews.ca/videostatic/news/4m4viy623q-fyim7z1d4p/JPEG_ONLINE_PASSPORT_KE.jpg?w=1200&quality=70&strip=all",
-        signature: "https://repository-images.githubusercontent.com/8805592/85279ffa-7f4a-4880-8e41-59e8032b0f71",
-        fingerprint: "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L2pvYjY3My0wNjktdi5qcGc.jpg",
+  const [documentsData, setDocumentsData] = React.useState({
+    profile_img:
+      "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+    passport_img:
+      "https://i1.wp.com/media.globalnews.ca/videostatic/news/4m4viy623q-fyim7z1d4p/JPEG_ONLINE_PASSPORT_KE.jpg?w=1200&quality=70&strip=all",
+    signature:
+      "https://repository-images.githubusercontent.com/8805592/85279ffa-7f4a-4880-8e41-59e8032b0f71",
+    fingerprint:
+      "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L2pvYjY3My0wNjktdi5qcGc.jpg",
+  });
+
+  const getCountryCode = (countryName: string): string | null => {
+    const country = countries.all.find((c) => c.name.toLowerCase() === countryName.toLowerCase());
+    return country ? country.alpha2 : null;
+  };
+
+  const checkInterpolStatus = async () => {
+    const resRed = await fetch(`https://ws-public.interpol.int/notices/v1/red?forename=${userData.name.split(' ')[0]}&name=${userData.name.split(' ')[1]}&nationality=${getCountryCode(userData.nationality)}&page=1&resultPerPage=200`);
+    const dataRed = await resRed.json();
+
+    console.log("Nationality", getCountryCode("France"));
+    // console.log("Interpole", data.total);
+    const resYellow = await fetch(`https://ws-public.interpol.int/notices/v1/yellow?forename=${userData.name.split(' ')[0]}&name=${userData.name.split(' ')[1]}&nationality=${getCountryCode(userData.nationality)}&page=1&resultPerPage=200`);
+    const dataYellow = await resYellow.json();
+
+    if (dataRed.total > 0){
+        setInterpoleStatus("Red");
     }
-    );
+    else if (dataYellow.total > 0){
+        setInterpoleStatus("Yellow");
+    }
+    else{
+        setInterpoleStatus("Fine");
+    }
+    setInterpolData(data);
+  }
+
+  useEffect(() => {
+    checkInterpolStatus();
+  }, [id, userData.name, userData.nationality]);
 
 
   const ownCountryRows = emergencyData.map((data, index) => ({
@@ -192,11 +230,11 @@ export default function page() {
     name: userData.name,
     nationality: userData.nationality,
     gender: userData.gender,
-    dob: "12/12/1990",
-    birth_place: "USA",
-    birth_country: "USA",
-    naturalized_place: "USA",
-    naturalized_date: "12/12/1990",
+    dob: userData.dob,
+    birth_place: userData.birth_place,
+    birth_country: userData.birth_country,
+    naturalized_place: userData.birth_place,
+    naturalized_date: userData.naturalized_date,
     former_nationality: "USA",
     height: "169cm",
     married_status: "Married",
@@ -271,20 +309,20 @@ export default function page() {
   const WalletInfo = walletInfo({
     money_available_arrival: "10000",
     card_name: "Visa",
-    amount_spent: "2000"
+    amount_spent: "2000",
   });
 
   const EmergencyInfo = emergencyInfo({
     tableRows: ownCountryRows,
     tableRowsSl: sriLankaRows,
-    });
+  });
 
-    const DocumentInfo = documents({
-        profile_image: documentsData.profile_img,
-  passport_copy: documentsData.passport_img,
-  signature: documentsData.signature,
-  finger_print: documentsData.fingerprint,
-    })
+  const DocumentInfo = documents({
+    profile_image: documentsData.profile_img,
+    passport_copy: documentsData.passport_img,
+    signature: documentsData.signature,
+    finger_print: documentsData.fingerprint,
+  });
 
   const statusColor = {
     pending: "orange",
@@ -292,6 +330,12 @@ export default function page() {
     approved: "green",
     rejected: "red",
   }[userData.req_status];
+
+  const interPoleColor = {
+    Red: "red",
+    Yellow: "yellow",
+    Fine: "green",
+  }[interpoleStaus];
 
   const data = [
     {
@@ -369,8 +413,8 @@ export default function page() {
             <Chip
               variant="ghost"
               size="sm"
-              value="Interpol Status"
-              color="red"
+              value={interpoleStaus}
+              color={interPoleColor}
             />
           </div>
         </div>
@@ -412,7 +456,11 @@ export default function page() {
           >
             Reject
           </Button>
-          <Button color="green" className="flex items-center gap-3" onClick={handleOpenAccept}>
+          <Button
+            color="green"
+            className="flex items-center gap-3"
+            onClick={handleOpenAccept}
+          >
             Approve
             {/* <CheckIcon class="h-6 w-6 text-gray-500" /> */}
           </Button>
@@ -423,7 +471,7 @@ export default function page() {
           <DialogHeader className="flex flex-col items-start">
             {" "}
             <Typography className="mb-1" variant="h4">
-                Reject Application {id}
+              Reject Application {id}
             </Typography>
           </DialogHeader>
           <svg
@@ -446,17 +494,17 @@ export default function page() {
           </Typography>
 
           <Chip
-              variant="ghost"
-              size="sm"
-              value={contactData.email}
-              color= "black"
-              style={{width: "auto"}}
-            />
+            variant="ghost"
+            size="sm"
+            value={contactData.email}
+            color="black"
+            style={{ width: "auto" }}
+          />
           <div className="">
-            <div style={{marginBottom: 10, marginTop: 10}}>
-            <Textarea label="Reason" />
+            <div style={{ marginBottom: 10, marginTop: 10 }}>
+              <Textarea label="Reason" />
             </div>
-            
+
             <Textarea label="Message" />
           </div>
         </DialogBody>
@@ -475,7 +523,7 @@ export default function page() {
           <DialogHeader className="flex flex-col items-start">
             {" "}
             <Typography className="mb-1" variant="h4">
-                Accept Application {id}
+              Accept Application {id}
             </Typography>
           </DialogHeader>
           <svg
@@ -494,17 +542,17 @@ export default function page() {
         </div>
         <DialogBody>
           <Chip
-              variant="ghost"
-              size="sm"
-              value={contactData.email}
-              color= "black"
-              style={{width: "auto"}}
-            />
+            variant="ghost"
+            size="sm"
+            value={contactData.email}
+            color="black"
+            style={{ width: "auto" }}
+          />
           <div className="">
-            <div style={{marginBottom: 10, marginTop: 10}}>
-            <Input label="Visa Charges" />
+            <div style={{ marginBottom: 10, marginTop: 10 }}>
+              <Input label="Visa Charges" />
             </div>
-            
+
             <Textarea label="Message" />
           </div>
         </DialogBody>

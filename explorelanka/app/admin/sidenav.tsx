@@ -14,8 +14,10 @@ import {
   Cog6ToothIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
+import { useRouter } from 'next/navigation';
 
 export default function SideNav() {
+    const router = useRouter();
   return (
     <Card className="h-full w-full max-w-[20rem] p-4 border border-black-500 shadow-xxl shadow-black-900">
       <div className="mb-2 p-4">
@@ -24,19 +26,13 @@ export default function SideNav() {
         </Typography>
       </div>
       <List>
-        <ListItem>
+        <ListItem onClick={()=> {router.push(`/admin/Dashboard`)}}>
           <ListItemPrefix>
             <PresentationChartBarIcon className="h-5 w-5" />
           </ListItemPrefix>
           Dashboard
         </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <DocumentTextIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Manage Visa
-        </ListItem>
-        <ListItem>
+        <ListItem onClick={()=> {router.push(`/admin/applicants`)}}>
           <ListItemPrefix>
             <UsersIcon className="h-5 w-5" />
           </ListItemPrefix>
