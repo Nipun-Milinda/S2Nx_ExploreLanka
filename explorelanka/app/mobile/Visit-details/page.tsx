@@ -7,6 +7,7 @@ import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import FlightIcon from '@mui/icons-material/Flight';
 import HomeIcon from '@mui/icons-material/Home';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Link from 'next/link';
 
 const page = () => {
     const [selected, setSelected] = useState('tourist');
@@ -86,9 +87,11 @@ const page = () => {
         </div>
             
             <div className='w-full mt-auto flex flex-col gap-2'>
+                <Link href="/mobile/previous-visit-details">
                 <Button color="blue" fullWidth>
                     Next
                 </Button>
+                </Link>
                 <Button variant="outlined" color="blue" fullWidth>
                     Back
                 </Button>

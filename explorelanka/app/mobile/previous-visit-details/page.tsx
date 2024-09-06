@@ -7,6 +7,7 @@ import { Checkbox, Button } from '@material-tailwind/react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
+import Link from 'next/link';
 
 const visaTypes = [
   { value: 'Tourist', label: 'Tourist' },
@@ -167,16 +168,18 @@ const PreviousVisitDetails = () => {
         </div>
       </div>
       <div className="w-full my-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
-        <Button
-          color="blue"
-          fullWidth
-          style={{ backgroundColor: '#094b59' }}
-          placeholder=""
-          onPointerEnterCapture={() => {}}
-          onPointerLeaveCapture={() => {}}
-        >
-          Next
-        </Button>
+        <Link href="/mobile/emergency-contacts">
+          <Button
+            color="blue"
+            fullWidth
+            style={{ backgroundColor: '#094b59' }}
+            placeholder=""
+            onPointerEnterCapture={() => { }}
+            onPointerLeaveCapture={() => { }}
+          >
+            Next
+          </Button>
+        </Link>
         <Button
           color="white"
           fullWidth={true}
@@ -186,8 +189,8 @@ const PreviousVisitDetails = () => {
             borderWidth: '3px',
           }}
           placeholder=""
-          onPointerEnterCapture={() => {}}
-          onPointerLeaveCapture={() => {}}
+          onPointerEnterCapture={() => { }}
+          onPointerLeaveCapture={() => { }}
         >
           Back
         </Button>

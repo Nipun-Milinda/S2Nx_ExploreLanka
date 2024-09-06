@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "styled-components";
+import Link from "next/link";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -160,6 +161,7 @@ const uploadDocuments = () => {
         </div>
       </div>
       <div className="w-full my-4">
+        <Link href={"/mobile/request-sent"}>
         <Button
           style={{ backgroundColor: "#213A57", color: "white" }}
           fullWidth
@@ -167,6 +169,7 @@ const uploadDocuments = () => {
         >
           Submit
         </Button>
+        </Link>
         <Button
           variant="outlined"
           fullWidth

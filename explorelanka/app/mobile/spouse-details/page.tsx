@@ -4,6 +4,7 @@ import React from 'react'
 import MobileTextInput from '@/components/mobileTextInput'
 import MobileSelect from '@/components/mobileSelect'
 import { Checkbox, Button } from "@material-tailwind/react";
+import Link from 'next/link';
 
 const nationalities = [
   { value: 'lk', label: 'Sri Lankan' },
@@ -47,9 +48,11 @@ const page = () => {
       <MobileTextInput label="Expiry Date" />
 
       <div className='w-full my-4'>
-        <Button color="blue" fullWidth>
-          Next
-        </Button>
+        <Link href="/mobile/contact-details">
+          <Button color="blue" fullWidth>
+            Next
+          </Button>
+        </Link>
         <Button color="blue" className='mt-4' fullWidth variant='outlined'> 
           Back
         </Button>

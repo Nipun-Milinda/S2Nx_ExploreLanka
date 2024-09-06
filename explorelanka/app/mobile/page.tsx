@@ -3,6 +3,7 @@
 import { Typography, Button } from '@material-tailwind/react';
 import Image from 'next/image';
 import React from 'react';
+import Link from 'next/link';
 
 const MyComponent = () => {
   // Implement your component logic here
@@ -20,7 +21,9 @@ const MyComponent = () => {
           </div>
 
           <div className="w-full">
+            <Link href="/mobile/personal-information-1">
             <Button color='green' ripple='light' rounded='full' size='lg'>Get Started</Button>
+            </Link>
             <Typography color="white" variant="p" className='mt-6'>By getting stared you agreeing to Terms & Conditions</Typography>
           </div>
 

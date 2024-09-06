@@ -4,6 +4,7 @@ import React from "react";
 import FullScreenImage from "./fullScreenImage";
 import { Button } from "@mui/material";
 import GlassCard from "./glassCard";
+import Link from "next/link";
 
 const HowItWorks = () => {
   return (
@@ -27,22 +28,26 @@ const HowItWorks = () => {
             heading="4. Arrive and Embark"
             para="Arrive in Sri Lanka, and let your epic quest begin—your path is ready, just follow the adventure!"
           />
-          <Button
-            variant="contained"
-            size="large"
-            className="font-poppins font-bold mt-5"
-            style={{ backgroundColor: "#0C6478", width: "90%" }}
-          >
-            Take the questioner
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            className="font-poppins font-bold mt-5"
-            style={{ color: "#0C6478", width: "90%" }}
-          >
-            I will take the questioner later
-          </Button>
+          <Link href="/mobile">
+            <Button
+              variant="contained"
+              size="large"
+              className="font-poppins font-bold mt-5"
+              style={{ backgroundColor: "#0C6478", width: "90%" }}
+            >
+              Take the questioner
+            </Button>
+          </Link>
+          <Link href="/mobile">
+            <Button
+              variant="outlined"
+              size="large"
+              className="font-poppins font-bold mt-5"
+              style={{ color: "#0C6478", width: "90%" }}
+            >
+              I will take the questioner later
+            </Button>
+          </Link>
         </div>
       </div>
     </FullScreenImage>

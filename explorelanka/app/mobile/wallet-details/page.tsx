@@ -7,6 +7,7 @@ import currencies from './currencies-with-flags.json';
 import CustomDropdown from './customDropdown';
 import { CSSTransition } from 'react-transition-group';
 import './WalletDetails.css';
+import Link from 'next/link';
 
 const WalletDetails = () => {
   const [walletId, setWalletId] = useState<string>('');
@@ -80,6 +81,7 @@ const WalletDetails = () => {
       </div>
 
       <div className="w-full p-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
+        <Link href="/mobile/upload-documents">
         <Button
           color="blue"
           fullWidth
@@ -90,6 +92,7 @@ const WalletDetails = () => {
         >
           Next
         </Button>
+        </Link>
         <Button
           color="white"
           fullWidth={true}

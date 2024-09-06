@@ -5,7 +5,7 @@ import MobileTextInput from '@/components/mobileTextInput'
 import MobileSelect from '@/components/mobileSelect'
 import { Checkbox, Button } from "@material-tailwind/react";
 import TextField from '@mui/material/TextField';
-
+import Link from 'next/link';
 
 
 const page = () => {
@@ -39,9 +39,11 @@ const page = () => {
 <MobileTextInput label="Email" />
       
 <div className='w-full mt-auto flex flex-col gap-2'>
-        <Button color="blue" fullWidth>
-          Next
-        </Button>
+        <Link href="/mobile/Passport-details">
+          <Button color="blue" fullWidth>
+            Next
+          </Button>
+        </Link>
         <Button variant="outlined" color="blue" fullWidth>
           Back
         </Button>

@@ -7,6 +7,7 @@ import { PlusIcon, XIcon } from '@heroicons/react/solid';
 import { CSSTransition } from 'react-transition-group';
 import { message } from 'antd';
 import './EmergencyContacts.css';
+import Link from 'next/link';
 
 const EmergencyContacts = () => {
   const [ownContactName, setOwnContactName] = useState<string>('');
@@ -472,6 +473,7 @@ const EmergencyContacts = () => {
       </div>
 
       <div className="w-full p-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
+        <Link href="/mobile/wallet-details">
         <Button
           color="blue"
           fullWidth={true}
@@ -482,6 +484,7 @@ const EmergencyContacts = () => {
         >
           Next
         </Button>
+        </Link>
         <Button
           color="white"
           fullWidth={true}

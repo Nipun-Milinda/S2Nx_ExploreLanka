@@ -7,6 +7,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Link from 'next/link';
 
 const Page = () => {
   return (
@@ -66,9 +67,11 @@ const Page = () => {
 
       
 <div className='w-full mt-auto flex flex-col gap-2'>
+        <Link href={"/mobile/Visit-details"}>
         <Button color="blue" fullWidth>
           Next
         </Button>
+        </Link>
         <Button variant="outlined" color="blue" fullWidth>
           Back
         </Button>

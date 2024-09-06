@@ -4,7 +4,7 @@ import React from 'react';
 import MobileTextInput from '@/components/mobileTextInput';
 import { Button } from "@material-tailwind/react";
 import { MuiTelInput } from "mui-tel-input";
-
+import Link from 'next/link';
 
 const Page = () => {
   
@@ -41,9 +41,11 @@ const Page = () => {
       </div>
 
       <div className='w-full mt-auto flex flex-col gap-2'>
+        <Link href="/mobile/Profession-details">
         <Button color="blue" fullWidth>
           Next
         </Button>
+        </Link>
         <Button variant="outlined" color="blue" fullWidth>
           Back
         </Button>

@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 
 import { useAppDispatch, useAppSelector } from '@/libs/hooks';
 import { setVisaApplication } from '@/libs/features/visaApplication.slice';
+import Link from 'next/link';
 
 const nationalities = [
   { value: 'lk', label: 'Sri Lankan' },
@@ -142,9 +143,11 @@ const Page = () => {
       <MobileSelect label="Marital Status" value={status} onChange={setStatus} options={maritalStatus} />
 
       <div className='w-full my-4'>
-        <Button color="blue" fullWidth onClick={handleNext}>
-          Next
-        </Button>
+        <Link href="/mobile/personal-information-2">
+          <Button color="blue" fullWidth>
+            Next
+          </Button>
+        </Link>
       </div>
     </div>
   );

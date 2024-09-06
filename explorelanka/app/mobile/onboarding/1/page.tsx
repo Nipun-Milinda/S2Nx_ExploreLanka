@@ -30,6 +30,16 @@ const page1 = () => {
               Begin the Adventure →
             </Button>
           </Link>
+          <Link href="/mobile/personal-information-1">
+            <Button
+                variant="outlined"
+                size="large"
+                className="font-poppins font-bold mt-5 text-white"
+                style={{  width: "90%" }}
+              >
+                Apply for visa
+              </Button>
+          </Link>
         </div>
       </div>
     </FullScreenImage>
