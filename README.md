@@ -24,24 +24,24 @@ ExploreLanka is an innovative application designed to promote tourism in Sri Lan
 
 Clone the repository:
 
-\`\`\`bash
+```bash
 git clone https://github.com/yourusername/explorelanka.git
 cd explorelanka
-\`\`\`
+```
 
 Install dependencies:
 
-\`\`\`bash
+```bash
 npm install
 # or
 yarn install
-\`\`\`
+```
 
 ### Set up environment variables:
 
 Create a \`.env\` file in the root directory and add your environment variables. For example:
 
-\`\`\`env
+```env
 PORT=your_port
 DB_NAME=your_db_name
 DB_USERNAME=your_db_username
@@ -53,75 +53,83 @@ CLOUNDINARY_API_SECRET=your_api_secret
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRATION=1h
 BCRYPT_SALT_ROUNDS=10
-\`\`\`
+```
+
+### Start From
+
+- **Start Exploring App**: Start using the app.
+
+```bash
+   localhost:3000/mobile/onboarding/1
+```
 
 ### Scripts
 
 - **Development Server**: Start the development server with hot-reloading.
 
-    \`\`\`bash
+    ```bash
     npm run dev
     # or
     yarn dev
-    \`\`\`
+    ```
 
 - **Build**: Build the application for production.
 
-    \`\`\`bash
+    ```bash
     npm run build
     # or
     yarn build
-    \`\`\`
+    ```
 
 - **Start**: Start the production server.
 
-    \`\`\`bash
+    ```bash
     npm run start
     # or
     yarn start
-    \`\`\`
+    ```
 
 - **Lint**: Lint the codebase.
 
-    \`\`\`bash
+    ```bash
     npm run lint
     # or
     yarn lint
-    \`\`\`
+    ```
 
 ### Database Migrations:
 
 - **Create a new migration**:
 
-    \`\`\`bash
+    ```bash
     npm run migration:create
     # or
     yarn migration:create
-    \`\`\`
+    ```
 
 - **Apply migrations**:
 
-    \`\`\`bash
+    ```bash
     npm run migrate
     # or
     yarn migrate
-    \`\`\`
+    ```
 
 - **Rollback last migration**:
 
-    \`\`\`bash
+    ```bash
     npm run migrate:rollback
     # or
     yarn migrate:rollback
-    \`\`\`
+    ```
 
 - **Rollback all migrations**:
 
-    \`\`\`bash
+    ```bash
     npm run migrate:rollback:all
     # or
     yarn migrate:rollback:all
-    \`\`\`
+    ```
 
 ## Technologies Used
 
