@@ -12,8 +12,8 @@ export async function imageUpload(filePath: string, fileName: string) {
     // Upload an image
      const uploadResult = await cloudinary.uploader
        .upload(
-           'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
-               public_id: 'shoes',
+           filePath, {
+               public_id: fileName,
            }
        )
        .catch((error) => {
@@ -23,7 +23,7 @@ export async function imageUpload(filePath: string, fileName: string) {
     console.log(uploadResult);
     
     // Optimize delivery by resizing and applying auto-format and auto-quality
-    const optimizeUrl = cloudinary.url('shoes', {
+    const optimizeUrl = cloudinary.url(fileName, {
         fetch_format: 'auto',
         quality: 'auto'
     });
